@@ -1,0 +1,16 @@
+app:
+  file:
+    download:
+      url: https://loremflickr.com
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:32769/postgres
+    username: postgres
+    password: postgrespw
+    database: postgresql
+  main:
+    web-application-type: NONE
+
+logging:
+  level:
+    root: info

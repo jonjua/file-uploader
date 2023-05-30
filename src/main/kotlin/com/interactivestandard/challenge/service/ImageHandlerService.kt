@@ -27,11 +27,13 @@ class ImageHandlerService(private val filesStorage: FilesStorage, private val cl
     @Value("\${app.file.download.url}")
     private val baseUrl = ""
 
+    @Value("\${app.number.file}")
     private var number: Int? = null
     fun initRequestNumberConf() {
-        val input = Scanner(System.`in`)
-        var number: Int? = null
-        while (number == null) {
+        //не работает в докере
+        //val input = Scanner(System.`in`)
+        //var number: Int? = 10
+    /*    while (number == null) {
             print("Введите количество загружаемых картинок (целое число): ")
             try {
                 number = input.nextInt()
@@ -43,20 +45,20 @@ class ImageHandlerService(private val filesStorage: FilesStorage, private val cl
                 println("Ошибка: введите целое число")
                 input.nextLine()
             }
-        }
+        }*/
         logger.info("Requested {} images", number)
         runBlocking(Dispatchers.Default) {
 
-            val jobs = List(number) {
+            val jobs = List(number!!) {
                 async {
 
                     val uri = "/" + Random.nextInt(5001) + "/" + Random.nextInt(5001)
-                    var clientResponse:ClientResponse
+
                     val redirect = client
                         .get()
                         .uri(uri)
                         .accept(MediaType.ALL).exchangeToMono { response ->
-                           clientResponse =response
+
                             response. toEntity<String>()
                         }
                         .block()

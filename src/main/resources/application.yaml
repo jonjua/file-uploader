@@ -2,6 +2,8 @@ app:
   file:
     download:
       url: https://loremflickr.com
+  number:
+    file: 1
 spring:
   r2dbc:
     url: r2dbc:postgresql://localhost:32769/postgres
